@@ -1,14 +1,17 @@
 version: "3"
 services:
-  python:
-    container_name: python
+  python-test:
+    container_name: python-test
     build:
       context: .
       dockerfile: dockerfile
+    volumes:
+      - .:/tests
     ports:
-      - "5000:5000"
+      - "5001:5001"
     networks:
       - python
 networks:
   python:
-    name: python
+    external:
+      name: python
