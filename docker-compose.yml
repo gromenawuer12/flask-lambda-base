@@ -9,6 +9,8 @@ services:
       - "5000:5000"
     networks:
       - python
+    environment:
+      FLASK_APP: src.infrastructure.api.app
 networks:
   python:
     name: python

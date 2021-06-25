@@ -1,6 +1,6 @@
-from user import User
 from flask import Flask, request
-from user_repository import UserRepository
+from ..database.user_repository import UserRepository
+from ...domain.user import User
 
 app = Flask(__name__)
 
