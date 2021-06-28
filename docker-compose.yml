@@ -10,7 +10,7 @@ services:
     networks:
       - python
     environment:
-      FLASK_APP: src.infrastructure.api.app
+      FLASK_APP: src.app
 networks:
   python:
     name: python

@@ -1,4 +1,6 @@
-class UserRepository:
+from ...domain.user_database import UserDatabase
+
+class UserInMemory(UserDatabase):
     def __init__(self):
         self.database = {0:"John",1:"Pepito"}
 
