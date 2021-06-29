@@ -1,10 +1,15 @@
 version: "3"
 services:
   python:
-    container_name: python
     build:
       context: .
       dockerfile: dockerfile
+    image: python:3.8-slim-buster
+    container_name: python
+    tty: true
+    working_dir: /usr/src/app
+    volumes:
+      - .:/usr/src/app
     ports:
       - "5000:5000"
     networks:
