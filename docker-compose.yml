@@ -16,6 +16,7 @@ services:
       - python
     environment:
       FLASK_APP: src.app
+      PYTHONPATH: /usr/src/app/src
 networks:
   python:
     name: python
