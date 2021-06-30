@@ -1,3 +1,4 @@
 flask
 inject
 flask-lambda
+object-mapper
