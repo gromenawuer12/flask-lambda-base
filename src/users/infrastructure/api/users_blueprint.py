@@ -1,5 +1,4 @@
 import inject, json
-from mapper.object_mapper import ObjectMapper
 from types import SimpleNamespace
 from flask import Blueprint, Response, request, jsonify
 from ...application.add_user import AddUser
@@ -16,11 +15,7 @@ def create_users_blueprint(get_user: GetUser, add_user: AddUser) -> Blueprint:
 
     @users_blueprint.route('/',methods=['POST'])
     def post() -> Response:
-        userSimple =  json.loads(json.dumps(request.get_json()),object_hook=lambda d: SimpleNamespace(**d))
-        mapper = ObjectMapper()
-        mapper.create_map(SimpleNamespace, User)
-        user = mapper.map(userSimple, User)
-        return add_user.execute(user)
+        return add_user.execute(User(json.loads(json.dumps(request.get_json()),object_hook=lambda d: SimpleNamespace(**d))))
 
 
     return users_blueprint

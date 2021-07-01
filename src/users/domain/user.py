@@ -2,9 +2,9 @@ from .user_error import UserError
 import re
 
 class User:
-    def __init__(self, nickname="", role=""):
-        self.nickname = nickname
-        self.role = role
+    def __init__(self, params):
+        self.nickname = params.nickname
+        self.role = params.role
 
     @property
     def nickname(self):
