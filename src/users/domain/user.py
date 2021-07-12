@@ -1,18 +1,17 @@
-from .user_error import UserError
-import re
+from .user_role import UserRole
+from werkzeug.security import generate_password_hash
+import sys
 
-class User:
+class User(UserRole):
     def __init__(self, params):
-        self.nickname = params.nickname
-        self.role = params.role
-
+        super(User,self).__init__(params)
+        self.password = params['password']
+    
     @property
-    def nickname(self):
-        return self.__nickname
-
-    @nickname.setter
-    def nickname(self, nickname):
-        if re.search(r"\W",nickname):
-            raise UserError('User can only contain ')
-        self.__nickname = nickname
+    def password(self):
+        return self._password
+    
+    @password.setter
+    def password(self,password):
+        self._password = generate_password_hash(password,method='sha256')
             
