@@ -1,6 +1,4 @@
-from .nose_decorator import nose
-
-def deleteAttrs(user,lAttr):
+def delete_attrs(user,lAttr):
     for attr in lAttr:
         delattr(user, attr)
     return user

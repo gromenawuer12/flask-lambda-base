@@ -10,6 +10,7 @@ from ...application.update_user import UpdateUser
 from ...domain.user import User
 from .token_optional_decorator import token_optional
 from .token_required_decorator import token_required
+from ...application.remove_underscore import remove_underscore
 
 
 @inject.autoparams()
@@ -18,6 +19,7 @@ def create_users_blueprint(get_user: GetUser, add_user: AddUser,login_user: Logi
 
     @users_blueprint.route('/<username>',methods=['GET'])
     @token_optional
+    @remove_underscore
     def get(auth_username,username) -> Response:
         return get_user.execute(username, auth_username)
 
