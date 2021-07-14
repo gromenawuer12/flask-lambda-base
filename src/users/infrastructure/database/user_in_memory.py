@@ -5,7 +5,7 @@ class UserInMemory(UserDatabase):
     def __init__(self):
         self.database = {"John":{"username":"John","role":"admin","password":"nlkhyt"},
         "Pepito":{"username":"Pepito","role":"user","password":"kajdfsg"},
-        "test":{"username":"test","password":"9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08","role":"test"}}
+        "test":{"username":"test","password":"sha256$3xOARts1mLQGVSBk$02ffdf6493fbeb6259ec11cdd411907da0282224cde41306dffe1bb912ef1214","role":"test"}}
 
     def create(self, user):
         self.database[user.username] = {"username":user.username,"password":user.password,"role":user.role}
@@ -14,6 +14,7 @@ class UserInMemory(UserDatabase):
     def find(self, username):
         return self.database.get(username)
     
-    def delete(self, username):
-        del(username)
-        return "Deleted"
+    def update(self, username, password, role):
+        self.database[username]["role"] = role
+        self.database[username]["password"] = password
+        return "Updated"

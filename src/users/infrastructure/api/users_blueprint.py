@@ -6,20 +6,20 @@ from users.application.login_user import LoginUser
 from .login_exception import LoginException
 from ...application.add_user import AddUser
 from ...application.get_user import GetUser
-from ...application.delete_user import DeleteUser
+from ...application.update_user import UpdateUser
 from ...domain.user import User
 from .token_optional_decorator import token_optional
 from .token_required_decorator import token_required
 
 
 @inject.autoparams()
-def create_users_blueprint(get_user: GetUser, add_user: AddUser,login_user: LoginUser, delete_user: DeleteUser) -> Blueprint:
+def create_users_blueprint(get_user: GetUser, add_user: AddUser,login_user: LoginUser, update_user: UpdateUser) -> Blueprint:
     users_blueprint = Blueprint('users', __name__)
 
     @users_blueprint.route('/<username>',methods=['GET'])
     @token_optional
     def get(auth_username,username) -> Response:
-        return get_user.execute(username, auth_username).__dict__
+        return get_user.execute(username, auth_username)
 
     @users_blueprint.route('/',methods=['POST'])
     def post() -> Response:
@@ -40,13 +40,11 @@ def create_users_blueprint(get_user: GetUser, add_user: AddUser,login_user: Logi
     def modify(auth_username, username) -> Response:    
         if auth_username!=username:
             raise Exception
-        user = get_user.execute(auth_username,username).__dict__
-        new_username = request.get_json().get("new_username") if request.get_json().get("new_username") else user['_username']
+        user = login_user.execute(username)
         new_password = request.get_json().get("new_password") if request.get_json().get("new_password") else user['_password']
         new_role = request.get_json().get("new_role") if request.get_json().get("new_role") else user['role']
 
-        delete_user.execute(user['username'])
-        add_user.execute(User({"username":new_username,"role":new_role,"password":new_password}))
+        update_user.execute(user['username'], new_password, new_role)
         return "Updated"
 
     return users_blueprint

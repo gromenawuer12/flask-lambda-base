@@ -3,7 +3,7 @@ import requests,base64, json, sys
 def test_get_user_none_authorization():
     response = requests.get("http://python:5000/users/John")
     assert response.status_code == 200
-    assert json.loads(response.content).keys() == {"_username"}
+    assert json.loads(response.content).keys() == {"username"}
 
 def test_get_different_user_authorizated():
     credentials = base64.b64encode(b"test:test").decode('utf-8')
@@ -11,7 +11,7 @@ def test_get_different_user_authorizated():
     response = requests.get("http://python:5000/users/John",headers={'Authorization': 'access_token '+token})
 
     assert response.status_code == 200
-    assert json.loads(response.content).keys() == {"_username","role"}
+    assert json.loads(response.content).keys() == {"username","role"}
 
 def test_get_same_user_authorizated():
     credentials = base64.b64encode(b"test:test").decode('utf-8')
@@ -19,7 +19,7 @@ def test_get_same_user_authorizated():
     response = requests.get("http://python:5000/users/test",headers={'Authorization': 'access_token '+token})
 
     assert response.status_code == 200
-    assert json.loads(response.content).keys() == {"_username","_password","role"}
+    assert json.loads(response.content).keys() == {"username","password","role"}
 
 def test_add_user():
     response = requests.post("http://python:5000/users/",json={"username":"test111112312____2123username","password":"aaa","role":"test_role"})
@@ -41,6 +41,6 @@ def test_login():
 def test_update():
     credentials = base64.b64encode(b"test:test").decode('utf-8')
     token = requests.post("http://python:5000/users/login",headers={"Authorization": f"Basic {credentials}"}).content.decode("utf-8")
-    response = requests.put("http://python:5000/users/John",headers={'Authorization': 'access_token '+token},json={"new_username":"test-nickn32ame","new_password":"aaa"})
+    response = requests.put("http://python:5000/users/test",headers={'Authorization': 'access_token '+token},json={"new_password":"aaa"})
 
     assert response.status_code == 200
