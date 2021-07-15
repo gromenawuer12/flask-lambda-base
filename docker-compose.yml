@@ -17,6 +17,7 @@ services:
     environment:
       FLASK_APP: src.app
       PYTHONPATH: /usr/src/app/src
+      SECRET_KEY: s3cr3t
 networks:
   python:
     name: python

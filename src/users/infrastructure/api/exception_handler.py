@@ -1,2 +1,2 @@
-def handle_exception(self):
-    return {"error":"..."},400
+def handle_exception(e):
+    return {"error":e.message},e.statusCode
