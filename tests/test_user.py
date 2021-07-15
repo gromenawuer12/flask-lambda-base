@@ -33,6 +33,10 @@ def test_add_user_400_dash():
     response = requests.post("http://python:5000/users/",json={"username":"test-nickn32ame","password":"aaa","role":"test-role"})
     assert response.status_code == 400
 
+def test_add_user_already_exists():
+    response = requests.post("http://python:5000/users/",json={"username":"John","password":"aaa","role":"test-role"})
+    assert response.status_code == 409
+
 def test_login():
     credentials = base64.b64encode(b"test:test").decode('utf-8')
     response = requests.post("http://python:5000/users/login",headers={"Authorization": f"Basic {credentials}"})

@@ -1,4 +1,4 @@
 class UserException(Exception):
-    def __init__(self, message):
+    def __init__(self, message, statusCode):
         self.message = message
-        self.statusCode = 400
+        self.statusCode = statusCode

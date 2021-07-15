@@ -15,7 +15,7 @@ class User():
     @username.setter
     def username(self, username):
         if re.search(r"\W",username):
-            raise UserException('Username can only contain alphanumeric values and low slashes')
+            raise UserException('Username can only contain alphanumeric values and low slashes',400)
         self._username = username
 
     @username.deleter
