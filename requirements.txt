@@ -2,3 +2,4 @@ flask
 inject
 flask-lambda
 PyJWT
+boto3
