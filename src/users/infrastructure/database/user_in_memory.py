@@ -4,8 +4,8 @@ import sys
 
 class UserInMemory(UserDatabase):
     def __init__(self):
-        self.database = {"John":{"username":"John","role":"admin","password":"nlkhyt"},
-        "Pepito":{"username":"Pepito","role":"user","password":"kajdfsg"},
+        self.database = {"John":{"username":"John","role":"admin","password":"eee"},
+        "Pepito":{"username":"Pepito","role":"user","password":"aaa"},
         "test":{"username":"test","password":"sha256$3xOARts1mLQGVSBk$02ffdf6493fbeb6259ec11cdd411907da0282224cde41306dffe1bb912ef1214","role":"test"}}
 
     def create(self, user):

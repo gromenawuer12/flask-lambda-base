@@ -18,6 +18,16 @@ services:
       FLASK_APP: src.app
       PYTHONPATH: /usr/src/app/src
       SECRET_KEY: s3cr3t
+      AWS_ACCESS_KEY_ID: "root"
+      AWS_SECRET_ACCESS_KEY: "root"
+  dynamodb:
+    image: "amazon/dynamodb-local:latest"
+    container_name: dynamodb
+    ports:
+      - "8000:8000"
+    tty: true
+    networks:
+      - python
 networks:
   python:
     name: python
