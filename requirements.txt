@@ -3,3 +3,4 @@ inject
 flask-lambda
 PyJWT
 boto3
+flask-cors

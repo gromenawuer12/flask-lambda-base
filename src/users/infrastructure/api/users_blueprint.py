@@ -35,7 +35,7 @@ def create_users_blueprint(get_user: GetUser, add_user: AddUser,login_user: Logi
         user = login_user.execute(auth.get('username'))
         if user is None or not check_password_hash(user['password'],auth.password):
             raise LoginException("Invalid username or password")
-        return jwt.encode({'username': user['username'], 'exp' : datetime.datetime.utcnow() + datetime.timedelta(minutes=30),}, os.getenv('SECRET_KEY'),algorithm="HS256")
+        return {"token":jwt.encode({'username': user['username'], 'exp' : datetime.datetime.utcnow() + datetime.timedelta(minutes=30),}, os.getenv('SECRET_KEY'),algorithm="HS256")}
 
     @users_blueprint.route('/<username>',methods=['PUT'])
     @token_required
