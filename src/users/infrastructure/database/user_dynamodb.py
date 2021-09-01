@@ -82,10 +82,13 @@ class UserDynamoDB(UserDatabase):
             Key={
                 'username': username
             },
-            UpdateExpressions='SET password = :val1, role = :val2',
+            UpdateExpression="SET password = :val1, #rl = :val2",
             ExpressionAttributeValues={
                 ':val1': generate_password_hash(password,method='sha256'),
                 ':val2': role
-            }
+            },
+            ExpressionAttributeNames={
+                 "#rl": "role"
+             }
         )
         return "Updated"
